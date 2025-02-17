@@ -17,6 +17,7 @@ public class Enemy : MonoBehaviour
     private void Start()
     {
         _anim = GetComponent<Animator>();
+        _boxColider = GetComponent<BoxCollider2D>();
         _source = GetComponent<AudioSource>();
       player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
     }
@@ -61,6 +62,7 @@ public class Enemy : MonoBehaviour
         if (other.tag == "Player")
         {
             _boxColider.enabled = false;
+           
             Debug.Log("hit player");
             other.transform.GetComponent<Player>().TakeDamage();
             _anim.SetTrigger("IsDestroyed");
@@ -72,8 +74,9 @@ public class Enemy : MonoBehaviour
 
         if (other.tag=="Laser")
         {
-            Destroy(_boxColider);
+            _boxColider.enabled = false;
             
+
             Debug.Log("Laser");
            
             Destroy(other.gameObject);
@@ -89,6 +92,7 @@ public class Enemy : MonoBehaviour
             _anim.SetTrigger("IsDestroyed");
             _speed = 0;
             _source.Play();
+            _canFire = Time.time + 2f;
             Destroy(this.gameObject,1f);
         }
     }

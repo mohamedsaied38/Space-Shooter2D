@@ -27,7 +27,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.R) && _gameOver)
+        if (Input.GetKeyDown(KeyCode.R) && !Player.isLive)
         {
             SceneManager.LoadScene(1);
         }

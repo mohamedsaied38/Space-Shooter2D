@@ -32,7 +32,7 @@ public class Player : MonoBehaviour
     [SerializeField] private GameObject _hitLeft, _hitRight;
     [SerializeField] private AudioSource _source;
     [SerializeField] private AudioClip _clip;
-
+    private  float horizontalInput, verticalInput;
 
     // Start is called before the first frame update
     void Start()
@@ -59,7 +59,7 @@ public class Player : MonoBehaviour
 
     void Movement()
     {
-        float horizontalInput, verticalInput;
+        
         horizontalInput = Input.GetAxis("Horizontal");
         verticalInput = Input.GetAxis("Vertical");
         float speed = _speed * _speedMultiplyer;
@@ -95,9 +95,13 @@ public class Player : MonoBehaviour
             _source.PlayOneShot(_clip);
             Instantiate(_tripplePrefab, _laserPos.position, Quaternion.identity);
             return;
+        } 
+        else
+        {
+            _source.PlayOneShot(_clip);
+            Instantiate(_laserPrefab, _laserPos.position, Quaternion.identity);
         }
-        _source.PlayOneShot(_clip);
-        Instantiate(_laserPrefab,_laserPos.position,Quaternion.identity);
+        
         
     }
 
@@ -109,7 +113,7 @@ public class Player : MonoBehaviour
         }
         Debug.Log("decrease health ..");
         _health--;
-        _uiManager.LivesChange(_health);
+        
 
         if (_health == 2)
         {
@@ -126,9 +130,10 @@ public class Player : MonoBehaviour
             // game ove 
             _isLive = false;
 
-            
+            _health = 0;
             Destroy(this.gameObject);
         }
+        _uiManager.LivesChange(_health);
 
     }
 
@@ -141,6 +146,7 @@ public class Player : MonoBehaviour
     }
     public void TrippleShoot()
     {
+        StopCoroutine(TrippleShootRoutine());
         StartCoroutine(TrippleShootRoutine());
     }
     void TrippleShootOff()
@@ -158,7 +164,8 @@ public class Player : MonoBehaviour
 
     public void Speed2X()
     {
-       StartCoroutine(Speed2XRoutine());
+        StopCoroutine(Speed2XRoutine());
+        StartCoroutine(Speed2XRoutine());
     }
     void Speed2XOff()
     {
@@ -176,6 +183,7 @@ public class Player : MonoBehaviour
 
     public void ShiledOn()
     {
+        StopCoroutine(ShiledOnRoutine());
         StartCoroutine(ShiledOnRoutine());
     }
     void ShiledOff()
@@ -190,12 +198,7 @@ public class Player : MonoBehaviour
         //refresh UI score
         _uiManager.RefreshScore(_score);
     }
-    public void StopPowerups()
-    {
-        StopCoroutine(ShiledOnRoutine());
-        StopCoroutine(Speed2XRoutine());
-        StopCoroutine(TrippleShootRoutine());
-    }
+    
 
     private void OnTriggerEnter2D(Collider2D other)
     {

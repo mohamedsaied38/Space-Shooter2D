@@ -40,17 +40,17 @@ public class Powerup : MonoBehaviour
             {
                 
                 case 0:
-                    player.StopPowerups();
+                    
                     player.TrippleShoot();
                     break;
                 case 1:
                     //speed powerup
-                    player.StopPowerups();
+                   
                     player.Speed2X();
                     break;
                 case 2:
                     //shield powerup
-                    player.StopPowerups();
+                   
                     player.ShiledOn();
                     break;
                 default:

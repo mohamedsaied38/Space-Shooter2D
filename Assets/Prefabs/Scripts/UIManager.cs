@@ -32,10 +32,11 @@ public class UIManager : MonoBehaviour
     public void LivesChange(int health)
     {
         _liveImage.sprite = liveSprites[health];
-        if (health == 0)
+        if (health <= 0)
         {
             GameOver();
         }
+        
     }
 
     void GameOver()

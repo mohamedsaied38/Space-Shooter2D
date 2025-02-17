@@ -135,7 +135,8 @@ MonoBehaviour:
   player: {fileID: 0}
   _anim: {fileID: 0}
   _source: {fileID: 0}
-  _laserPrefab: {fileID: 0}
+  _laserPrefab: {fileID: 6072575606550850926, guid: 5e17ed480e8aa3547b62a6f903fc2850,
+    type: 3}
   _canFire: -0.1
 --- !u!61 &6342558790881486943
 BoxCollider2D:
