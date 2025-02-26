@@ -53,6 +53,15 @@ public class Powerup : MonoBehaviour
                    
                     player.ShiledOn();
                     break;
+                case 3:
+                    player.IncreaseAmmo();
+                    break;
+                case 4 :
+                    player.IncreaseHealth();
+                        break;
+                case 5 :
+                    player.SecondLaser();
+                    break;
                 default:
                     Debug.Log("default power up id : " + id);
                     break;

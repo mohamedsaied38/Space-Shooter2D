@@ -20,6 +20,8 @@ public class SpawnManager : MonoBehaviour
     private void Start()
     {
         _spawnEnemey = false;
+      //  StartCoroutine(SpawnAmmo());
+      //  StartCoroutine(PowerupHealth());
     }
 
     public void SpawnGame()
@@ -27,6 +29,9 @@ public class SpawnManager : MonoBehaviour
         _spawnEnemey = true;
         StartCoroutine(SpawnEnemey());
         StartCoroutine(SpawnPowerup());
+        StartCoroutine(SpawnAmmo());
+        StartCoroutine(PowerupHealth());
+
     }
 
     IEnumerator SpawnEnemey()
@@ -60,4 +65,38 @@ public class SpawnManager : MonoBehaviour
 
 
     }
+
+
+     IEnumerator SpawnAmmo()
+    {
+        while (Player.isLive)
+        {
+            yield return new WaitForSeconds(15f);
+            Debug.Log("Ammo Spawned...");
+            randomx = Random.Range(-9.2f, 9.2f);
+            pos = new Vector3(randomx, 7, 0);
+            GameObject powerup = Instantiate(powerups[3], pos, Quaternion.identity);
+
+            spawn = Random.Range(_powerupDelayMin, _powerupDelayMax);
+
+        }
+     
+    }
+
+    IEnumerator PowerupHealth()
+    {
+        while (Player.isLive)
+        {
+            yield return new WaitForSeconds(20f);
+            Debug.Log("health Spawned...");
+            randomx = Random.Range(-9.2f, 9.2f);
+            pos = new Vector3(randomx, 7, 0);
+            GameObject powerup = Instantiate(powerups[4], pos, Quaternion.identity);
+
+            spawn = Random.Range(_powerupDelayMin, _powerupDelayMax);
+
+        }
+
+    }
+
 }

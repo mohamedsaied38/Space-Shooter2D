@@ -51,7 +51,7 @@ public class Enemy : MonoBehaviour
             for(int i = 0; i < lasers.Length; i++)
             {
                 lasers[i].AssignEnemeyLaser();
-                lasers[i].tag = "Enemey";
+                lasers[i].tag = "Enemy";
             }
         }
     }
@@ -97,6 +97,28 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    
+    public void TakeDamage(int amount)
+    {
+        _boxColider.enabled = false;
+
+
+        Debug.Log("bomp");
+
+        
+
+        if (player != null)
+        {
+            player.AddScore(amount);
+        }
+        else
+        {
+            Debug.LogWarning("player is null no more score . bomp.");
+        }
+        _anim.SetTrigger("IsDestroyed");
+        _speed = 0;
+        _source.Play();
+        _canFire = Time.time + 2f;
+        Destroy(this.gameObject, 1f);
+    }
 
 }

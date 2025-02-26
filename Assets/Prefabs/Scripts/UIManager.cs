@@ -10,11 +10,21 @@ public class UIManager : MonoBehaviour
     [SerializeField] private Image _liveImage;
     [SerializeField] private GameObject _gameOver;
     [SerializeField] private GameObject _restartText;
+    [SerializeField]
+    public  Slider thrusterBar;
+    [SerializeField] GameObject _shiled;
+    [SerializeField] private Image[] _shiledImages;
+    [SerializeField] private Player _player;
+    [SerializeField] private Text _ammoTxt;
+
+
     // Start is called before the first frame update
     void Start()
     {
+        
         _gameOver.SetActive(false);
         _restartText.SetActive(false);
+        _shiled.SetActive(false);
     }
 
     // Update is called once per frame
@@ -58,5 +68,59 @@ public class UIManager : MonoBehaviour
         }
         
 
+    }
+
+    public void ThrusterBar(float amount)
+    {
+        thrusterBar.value = amount;
+        
+    }
+
+    public void ShiledOn()
+    {
+        _shiled.SetActive(true);
+        _shiledImages[0].enabled = true;
+        _shiledImages[1].enabled = true;
+        _shiledImages[2].enabled = true;
+
+    }
+    public void ShiledOff()
+    {
+        _shiled.SetActive(false);
+      
+
+    }
+    public void ChangeShieldImage(int num)
+    {
+        
+
+
+        if ( num >0 )
+        {
+            _shiledImages[num].enabled = false;
+        }
+        else if(num == 0)
+        {
+            _shiledImages[num].enabled = false;
+            _shiled.SetActive(false);
+            _player.ShiledDameged();
+        }
+        
+
+    }
+
+    public void RefreshAmmo(int amount)
+    {
+        if (amount <= 0)
+        {
+            _ammoTxt.text = "Out Of Ammo";
+            
+        }
+        else 
+        {
+            _ammoTxt.text = amount.ToString();
+        }
+
+       
     }
 }
